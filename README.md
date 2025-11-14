@@ -167,3 +167,8 @@ This is a private project for now. See CLAUDE.md for AI assistant guidance.
 ## License
 
 Proprietary - All Rights Reserved
+
+## CI/CD Status
+
+[![Build and Push Docker Image](https://github.com/daemon4d-us/future-economy-indices/actions/workflows/build.yml/badge.svg)](https://github.com/daemon4d-us/future-economy-indices/actions/workflows/build.yml)
+[![Deploy to GKE with Helm](https://github.com/daemon4d-us/future-economy-indices/actions/workflows/deploy.yml/badge.svg)](https://github.com/daemon4d-us/future-economy-indices/actions/workflows/deploy.yml)
