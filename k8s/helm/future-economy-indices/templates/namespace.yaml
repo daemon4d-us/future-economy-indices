@@ -1,6 +1,8 @@
+{{- if .Values.namespace.create }}
 apiVersion: v1
 kind: Namespace
 metadata:
   name: future-economy-indices
   labels:
     {{- include "future-economy-indices.labels" . | nindent 4 }}
+{{- end }}

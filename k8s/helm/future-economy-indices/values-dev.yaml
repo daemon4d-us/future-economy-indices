@@ -2,6 +2,10 @@
 
 environment: dev
 
+# Namespace already exists, don't try to create it
+namespace:
+  create: false
+
 # Single replica for dev
 replicaCount: 1
 
