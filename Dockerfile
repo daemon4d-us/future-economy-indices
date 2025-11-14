@@ -16,6 +16,7 @@ WORKDIR /app
 # Copy workspace files
 COPY Cargo.toml Cargo.lock ./
 COPY crates ./crates
+COPY src ./src
 
 # Build the application in release mode
 RUN cargo build --release --package api-server
