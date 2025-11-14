@@ -5,6 +5,13 @@ environment: dev
 # Single replica for dev
 replicaCount: 1
 
+# Override service account to use dev GCP project
+serviceAccount:
+  create: true
+  name: api-server
+  annotations:
+    iam.gke.io/gcp-service-account: dev-api-server@urania-economy-indices-dev.iam.gserviceaccount.com
+
 image:
   repository: gcr.io/urania-economy-indices-dev/api-server
   tag: "develop"
