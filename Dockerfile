@@ -1,7 +1,7 @@
 # Multi-stage build for Rust API server
 
 # Stage 1: Build stage
-FROM rust:1.83-slim-bookworm AS builder
+FROM rustlang/rust:nightly-bookworm-slim AS builder
 
 # Install dependencies
 RUN apt-get update && apt-get install -y \
@@ -17,8 +17,10 @@ WORKDIR /app
 COPY Cargo.toml Cargo.lock ./
 COPY crates ./crates
 COPY src ./src
+COPY .sqlx ./.sqlx
 
-# Build the application in release mode
+# Build the application in release mode with offline sqlx
+ENV SQLX_OFFLINE=true
 RUN cargo build --release --package api-server
 
 # Stage 2: Runtime stage

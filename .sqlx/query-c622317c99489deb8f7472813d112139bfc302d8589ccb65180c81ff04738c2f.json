@@ -1,0 +1,25 @@
+{
+  "db_name": "PostgreSQL",
+  "query": "\n        INSERT INTO index_performance (\n            index_name, date, value, daily_return\n        )\n        VALUES ($1, $2, $3, $4)\n        ON CONFLICT (index_name, date)\n        DO UPDATE SET\n            value = EXCLUDED.value,\n            daily_return = EXCLUDED.daily_return\n        RETURNING id\n        ",
+  "describe": {
+    "columns": [
+      {
+        "ordinal": 0,
+        "name": "id",
+        "type_info": "Int4"
+      }
+    ],
+    "parameters": {
+      "Left": [
+        "Varchar",
+        "Date",
+        "Float4",
+        "Float4"
+      ]
+    },
+    "nullable": [
+      false
+    ]
+  },
+  "hash": "c622317c99489deb8f7472813d112139bfc302d8589ccb65180c81ff04738c2f"
+}

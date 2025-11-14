@@ -1,0 +1,77 @@
+{
+  "db_name": "PostgreSQL",
+  "query": "\n        SELECT id as \"id!\", index_name, company_id as \"company_id!\", weight, rebalance_date,\n               rank, space_revenue_pct, revenue_growth_rate, reason_included, created_at\n        FROM index_compositions\n        WHERE index_name = $1 AND rebalance_date = $2\n        ORDER BY weight DESC\n        ",
+  "describe": {
+    "columns": [
+      {
+        "ordinal": 0,
+        "name": "id!",
+        "type_info": "Int4"
+      },
+      {
+        "ordinal": 1,
+        "name": "index_name",
+        "type_info": "Varchar"
+      },
+      {
+        "ordinal": 2,
+        "name": "company_id!",
+        "type_info": "Int4"
+      },
+      {
+        "ordinal": 3,
+        "name": "weight",
+        "type_info": "Float4"
+      },
+      {
+        "ordinal": 4,
+        "name": "rebalance_date",
+        "type_info": "Date"
+      },
+      {
+        "ordinal": 5,
+        "name": "rank",
+        "type_info": "Int4"
+      },
+      {
+        "ordinal": 6,
+        "name": "space_revenue_pct",
+        "type_info": "Float4"
+      },
+      {
+        "ordinal": 7,
+        "name": "revenue_growth_rate",
+        "type_info": "Float4"
+      },
+      {
+        "ordinal": 8,
+        "name": "reason_included",
+        "type_info": "Text"
+      },
+      {
+        "ordinal": 9,
+        "name": "created_at",
+        "type_info": "Timestamptz"
+      }
+    ],
+    "parameters": {
+      "Left": [
+        "Text",
+        "Date"
+      ]
+    },
+    "nullable": [
+      false,
+      false,
+      true,
+      false,
+      false,
+      true,
+      true,
+      true,
+      true,
+      false
+    ]
+  },
+  "hash": "2d49545c353f1fee644125741cdc85991e35b793e7d1bb4f3fd1657f3118bb0f"
+}

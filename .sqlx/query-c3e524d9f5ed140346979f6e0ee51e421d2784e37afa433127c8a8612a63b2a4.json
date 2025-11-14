@@ -1,0 +1,77 @@
+{
+  "db_name": "PostgreSQL",
+  "query": "\n        SELECT id as \"id!\", company_id as \"company_id!\", date, revenue, revenue_growth_yoy, revenue_growth_3y_cagr,\n               market_cap, price, volume, created_at\n        FROM fundamentals\n        WHERE company_id = $1\n        ORDER BY date DESC\n        LIMIT $2\n        ",
+  "describe": {
+    "columns": [
+      {
+        "ordinal": 0,
+        "name": "id!",
+        "type_info": "Int4"
+      },
+      {
+        "ordinal": 1,
+        "name": "company_id!",
+        "type_info": "Int4"
+      },
+      {
+        "ordinal": 2,
+        "name": "date",
+        "type_info": "Date"
+      },
+      {
+        "ordinal": 3,
+        "name": "revenue",
+        "type_info": "Int8"
+      },
+      {
+        "ordinal": 4,
+        "name": "revenue_growth_yoy",
+        "type_info": "Float4"
+      },
+      {
+        "ordinal": 5,
+        "name": "revenue_growth_3y_cagr",
+        "type_info": "Float4"
+      },
+      {
+        "ordinal": 6,
+        "name": "market_cap",
+        "type_info": "Int8"
+      },
+      {
+        "ordinal": 7,
+        "name": "price",
+        "type_info": "Float4"
+      },
+      {
+        "ordinal": 8,
+        "name": "volume",
+        "type_info": "Int8"
+      },
+      {
+        "ordinal": 9,
+        "name": "created_at",
+        "type_info": "Timestamptz"
+      }
+    ],
+    "parameters": {
+      "Left": [
+        "Int4",
+        "Int8"
+      ]
+    },
+    "nullable": [
+      false,
+      true,
+      false,
+      true,
+      true,
+      true,
+      true,
+      true,
+      true,
+      false
+    ]
+  },
+  "hash": "c3e524d9f5ed140346979f6e0ee51e421d2784e37afa433127c8a8612a63b2a4"
+}

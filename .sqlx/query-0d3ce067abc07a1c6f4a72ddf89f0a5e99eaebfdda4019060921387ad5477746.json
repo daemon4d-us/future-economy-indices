@@ -1,0 +1,80 @@
+{
+  "db_name": "PostgreSQL",
+  "query": "\n        SELECT id, ticker, name, description, market_cap, space_score, ai_score,\n               segments as \"segments: Vec<String>\", last_classified_at, created_at, updated_at\n        FROM companies\n        ORDER BY ticker\n        ",
+  "describe": {
+    "columns": [
+      {
+        "ordinal": 0,
+        "name": "id",
+        "type_info": "Int4"
+      },
+      {
+        "ordinal": 1,
+        "name": "ticker",
+        "type_info": "Varchar"
+      },
+      {
+        "ordinal": 2,
+        "name": "name",
+        "type_info": "Varchar"
+      },
+      {
+        "ordinal": 3,
+        "name": "description",
+        "type_info": "Text"
+      },
+      {
+        "ordinal": 4,
+        "name": "market_cap",
+        "type_info": "Int8"
+      },
+      {
+        "ordinal": 5,
+        "name": "space_score",
+        "type_info": "Float4"
+      },
+      {
+        "ordinal": 6,
+        "name": "ai_score",
+        "type_info": "Float4"
+      },
+      {
+        "ordinal": 7,
+        "name": "segments: Vec<String>",
+        "type_info": "TextArray"
+      },
+      {
+        "ordinal": 8,
+        "name": "last_classified_at",
+        "type_info": "Timestamptz"
+      },
+      {
+        "ordinal": 9,
+        "name": "created_at",
+        "type_info": "Timestamptz"
+      },
+      {
+        "ordinal": 10,
+        "name": "updated_at",
+        "type_info": "Timestamptz"
+      }
+    ],
+    "parameters": {
+      "Left": []
+    },
+    "nullable": [
+      false,
+      false,
+      false,
+      true,
+      true,
+      true,
+      true,
+      true,
+      true,
+      false,
+      false
+    ]
+  },
+  "hash": "0d3ce067abc07a1c6f4a72ddf89f0a5e99eaebfdda4019060921387ad5477746"
+}

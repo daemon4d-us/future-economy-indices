@@ -1,0 +1,29 @@
+{
+  "db_name": "PostgreSQL",
+  "query": "\n        INSERT INTO fundamentals (\n            company_id, date, revenue, revenue_growth_yoy, revenue_growth_3y_cagr,\n            market_cap, price, volume\n        )\n        VALUES ($1, $2, $3, $4, $5, $6, $7, $8)\n        RETURNING id\n        ",
+  "describe": {
+    "columns": [
+      {
+        "ordinal": 0,
+        "name": "id",
+        "type_info": "Int4"
+      }
+    ],
+    "parameters": {
+      "Left": [
+        "Int4",
+        "Date",
+        "Int8",
+        "Float4",
+        "Float4",
+        "Int8",
+        "Float4",
+        "Int8"
+      ]
+    },
+    "nullable": [
+      false
+    ]
+  },
+  "hash": "a2630765a0029d55d50c0d50860dbddebfc7cb63096991fd15ef9e36e5592c93"
+}

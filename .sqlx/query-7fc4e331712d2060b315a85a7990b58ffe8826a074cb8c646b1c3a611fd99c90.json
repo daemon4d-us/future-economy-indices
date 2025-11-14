@@ -1,0 +1,29 @@
+{
+  "db_name": "PostgreSQL",
+  "query": "\n        INSERT INTO index_compositions (\n            index_name, company_id, weight, rebalance_date, rank,\n            space_revenue_pct, revenue_growth_rate, reason_included\n        )\n        VALUES ($1, $2, $3, $4, $5, $6, $7, $8)\n        RETURNING id\n        ",
+  "describe": {
+    "columns": [
+      {
+        "ordinal": 0,
+        "name": "id",
+        "type_info": "Int4"
+      }
+    ],
+    "parameters": {
+      "Left": [
+        "Varchar",
+        "Int4",
+        "Float4",
+        "Date",
+        "Int4",
+        "Float4",
+        "Float4",
+        "Text"
+      ]
+    },
+    "nullable": [
+      false
+    ]
+  },
+  "hash": "7fc4e331712d2060b315a85a7990b58ffe8826a074cb8c646b1c3a611fd99c90"
+}
