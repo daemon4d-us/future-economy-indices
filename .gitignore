@@ -1,6 +1,7 @@
 # Rust build artifacts
 /target
-Cargo.lock
+# Note: Cargo.lock should be committed for applications (not libraries)
+# We commit it to ensure reproducible builds in Docker
 
 # Environment variables (contains secrets!)
 .env
