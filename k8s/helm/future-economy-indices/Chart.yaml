@@ -1,0 +1,15 @@
+apiVersion: v2
+name: future-economy-indices
+description: A Helm chart for Future Economy Indices API server
+type: application
+version: 0.1.0
+appVersion: "0.1.0"
+keywords:
+  - indices
+  - finance
+  - api
+maintainers:
+  - name: Future Economy Indices Team
+home: https://urania.fund
+sources:
+  - https://github.com/your-org/future-economy-indices

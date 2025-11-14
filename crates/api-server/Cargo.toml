@@ -1,0 +1,25 @@
+[package]
+name = "api-server"
+version = "0.1.0"
+edition = "2021"
+
+[[bin]]
+name = "api-server"
+path = "src/main.rs"
+
+[dependencies]
+database = { path = "../database" }
+index-engine = { path = "../index-engine" }
+tokio = { workspace = true }
+axum = "0.7"
+tower = "0.4"
+tower-http = { version = "0.5", features = ["cors", "trace"] }
+serde = { workspace = true }
+serde_json = { workspace = true }
+chrono = { workspace = true }
+anyhow = { workspace = true }
+thiserror = { workspace = true }
+dotenvy = { workspace = true }
+tracing = { workspace = true }
+tracing-subscriber = { workspace = true }
+sqlx = { workspace = true }

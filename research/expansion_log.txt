@@ -1,0 +1,310 @@
+SPACEINFRA Universe Expansion
+================================================================================
+
+Candidate universe: 35 companies
+Removing duplicates...
+After deduplication: 34 companies
+
+================================================================================
+PHASE 1: Fetch Company Data and Classify
+================================================================================
+
+[1/34] GSAT
+--------------------------------------------------------------------------------
+  Name: Globalstar, Inc. Common Stock
+  Market Cap: $6,402,803,139
+  🤖 Space Related: True
+  🤖 Space Revenue %: 30%
+  🤖 Confidence: medium
+  🤖 Segments: Satellites, Ground
+  ✓ Added to universe
+[2/34] AJRD
+--------------------------------------------------------------------------------
+  ✗ Error: RetryError[<Future at 0x7d6fdd9b02c0 state=finished raised HTTPError>]
+[3/34] LHX
+--------------------------------------------------------------------------------
+  Name: L3Harris Technologies, Inc.
+  Market Cap: $54,368,780,509
+  🤖 Space Related: True
+  🤖 Space Revenue %: 20%
+  🤖 Confidence: medium
+  🤖 Segments: Satellites, Ground, Components
+  ✓ Added to universe
+[4/34] DISH
+--------------------------------------------------------------------------------
+  ✗ Error: RetryError[<Future at 0x7d6fdd83ba10 state=finished raised HTTPError>]
+[5/34] BA
+--------------------------------------------------------------------------------
+  ✗ Error: RetryError[<Future at 0x7d6fdd873230 state=finished raised HTTPError>]
+[6/34] HII
+--------------------------------------------------------------------------------
+  ✗ Error: RetryError[<Future at 0x7d6fddc30320 state=finished raised HTTPError>]
+[7/34] VSAT
+--------------------------------------------------------------------------------
+  ✗ Error: RetryError[<Future at 0x7d6fdd9b02c0 state=finished raised HTTPError>]
+[8/34] CMCSA
+--------------------------------------------------------------------------------
+  ✗ Error: RetryError[<Future at 0x7d6fdd8737a0 state=finished raised HTTPError>]
+[9/34] RKLB
+--------------------------------------------------------------------------------
+  ✗ Error: RetryError[<Future at 0x7d6fdd92a7b0 state=finished raised HTTPError>]
+[10/34] RTX
+--------------------------------------------------------------------------------
+  ✗ Error: RetryError[<Future at 0x7d6fddd8cce0 state=finished raised HTTPError>]
+[11/34] KTOS
+--------------------------------------------------------------------------------
+  Name: Kratos Defense & Security Solutions, Inc.
+  Market Cap: $13,149,314,339
+  🤖 Space Related: True
+  🤖 Space Revenue %: 30%
+  🤖 Confidence: medium
+  🤖 Segments: Satellites, Ground, Components
+  ✓ Added to universe
+[12/34] LMT
+--------------------------------------------------------------------------------
+  Name: Lockheed Martin Corp.
+  Market Cap: $106,061,179,797
+  🤖 Space Related: True
+  🤖 Space Revenue %: 20%
+  🤖 Confidence: medium
+  🤖 Segments: Satellites, Launch, Components
+  ✓ Added to universe
+[13/34] SIRI
+--------------------------------------------------------------------------------
+  Name: Sirius XM Holdings,  Inc
+  Market Cap: $7,306,753,118
+  🤖 Space Related: False
+  🤖 Space Revenue %: 0%
+  🤖 Confidence: low
+  🤖 Segments: 
+  ✗ Not space-related
+[14/34] TDY
+--------------------------------------------------------------------------------
+  Name: Teledyne Technologies Incorporated
+  Market Cap: $24,093,837,999
+  🤖 Space Related: True
+  🤖 Space Revenue %: 10%
+  🤖 Confidence: medium
+  🤖 Segments: Components, Ground
+  ✓ Added to universe
+[15/34] BLDE
+--------------------------------------------------------------------------------
+  ✗ Error: RetryError[<Future at 0x7d6fddc30320 state=finished raised HTTPError>]
+[16/34] LUNR
+--------------------------------------------------------------------------------
+  ✗ Error: RetryError[<Future at 0x7d6fdd871dc0 state=finished raised HTTPError>]
+[17/34] JOBY
+--------------------------------------------------------------------------------
+  ✗ Error: RetryError[<Future at 0x7d6fdd8b41a0 state=finished raised HTTPError>]
+[18/34] AVAV
+--------------------------------------------------------------------------------
+  ✗ Error: RetryError[<Future at 0x7d6fdd8b4890 state=finished raised HTTPError>]
+[19/34] MNTS
+--------------------------------------------------------------------------------
+  ✗ Error: RetryError[<Future at 0x7d6fdd8b46b0 state=finished raised HTTPError>]
+[20/34] SATS
+--------------------------------------------------------------------------------
+  ✗ Error: RetryError[<Future at 0x7d6fdd8b7560 state=finished raised HTTPError>]
+[21/34] SPCE
+--------------------------------------------------------------------------------
+  Name: Virgin Galactic Holdings, Inc.
+  Market Cap: $206,751,564
+  🤖 Space Related: True
+  🤖 Space Revenue %: 50%
+  🤖 Confidence: high
+  🤖 Segments: Launch, Ground
+  ✓ Added to universe
+[22/34] AXON
+--------------------------------------------------------------------------------
+  Name: Axon Enterprise, Inc. Common Stock
+  Market Cap: $47,544,344,870
+  🤖 Space Related: False
+  🤖 Space Revenue %: 0%
+  🤖 Confidence: low
+  🤖 Segments: 
+  ✗ Not space-related
+[23/34] SPIR
+--------------------------------------------------------------------------------
+  Name: Spire Global, Inc.
+  Market Cap: $290,921,570
+  🤖 Space Related: True
+  🤖 Space Revenue %: 50%
+  🤖 Confidence: high
+  🤖 Segments: Satellites, Ground
+  ✓ Added to universe
+[24/34] ASTS
+--------------------------------------------------------------------------------
+  Name: AST SpaceMobile, Inc. Class A Common Stock
+  Market Cap: $19,188,340,580
+  🤖 Space Related: True
+  🤖 Space Revenue %: 90%
+  🤖 Confidence: high
+  🤖 Segments: Satellites, Ground
+  ✓ Added to universe
+[25/34] VORB
+--------------------------------------------------------------------------------
+  ✗ Error: RetryError[<Future at 0x7d6fddd8cce0 state=finished raised HTTPError>]
+[26/34] HON
+--------------------------------------------------------------------------------
+  ✗ Error: RetryError[<Future at 0x7d6fdd870380 state=finished raised HTTPError>]
+[27/34] GILT
+--------------------------------------------------------------------------------
+  ✗ Error: RetryError[<Future at 0x7d6fdd8d0f80 state=finished raised HTTPError>]
+[28/34] MKSI
+--------------------------------------------------------------------------------
+  ✗ Error: RetryError[<Future at 0x7d6fdd8d1520 state=finished raised HTTPError>]
+[29/34] MAXR
+--------------------------------------------------------------------------------
+  ✗ Error: RetryError[<Future at 0x7d6fdd8d1ac0 state=finished raised HTTPError>]
+[30/34] NOC
+--------------------------------------------------------------------------------
+  ✗ Error: RetryError[<Future at 0x7d6fdd8d2060 state=finished raised HTTPError>]
+[31/34] ACHR
+--------------------------------------------------------------------------------
+  Name: Archer Aviation Inc.
+  Market Cap: $5,327,973,822
+  🤖 Space Related: True
+  🤖 Space Revenue %: 10%
+  🤖 Confidence: medium
+  🤖 Segments: Launch, Ground
+  ✓ Added to universe
+[32/34] TXT
+--------------------------------------------------------------------------------
+  Name: Textron, Inc.
+  Market Cap: $14,455,659,970
+  🤖 Space Related: True
+  🤖 Space Revenue %: 10%
+  🤖 Confidence: medium
+  🤖 Segments: Components
+  ✓ Added to universe
+[33/34] IRDM
+--------------------------------------------------------------------------------
+  Name: Iridium Communications Inc.
+  Market Cap: $1,757,632,578
+  🤖 Space Related: True
+  🤖 Space Revenue %: 50%
+  🤖 Confidence: high
+  🤖 Segments: Satellites, Ground
+  ✓ Added to universe
+[34/34] PL
+--------------------------------------------------------------------------------
+  Name: Planet Labs PBC
+  Market Cap: $3,944,493,668
+  🤖 Space Related: True
+  🤖 Space Revenue %: 10%
+  🤖 Confidence: medium
+  🤖 Segments: Satellites, Ground
+  ✓ Added to universe
+
+================================================================================
+PHASE 1 COMPLETE: Found 12 space-related companies
+================================================================================
+
+Space-related companies found:
+ticker                                       name  space_revenue_pct confidence                       segments
+  ASTS AST SpaceMobile, Inc. Class A Common Stock               90.0       high             Satellites, Ground
+  IRDM                Iridium Communications Inc.               50.0       high             Satellites, Ground
+  SPCE             Virgin Galactic Holdings, Inc.               50.0       high                 Launch, Ground
+  SPIR                         Spire Global, Inc.               50.0       high             Satellites, Ground
+  KTOS  Kratos Defense & Security Solutions, Inc.               30.0     medium Satellites, Ground, Components
+  GSAT              Globalstar, Inc. Common Stock               30.0     medium             Satellites, Ground
+   LMT                      Lockheed Martin Corp.               20.0     medium Satellites, Launch, Components
+   LHX                L3Harris Technologies, Inc.               20.0     medium Satellites, Ground, Components
+   TDY         Teledyne Technologies Incorporated               10.0     medium             Components, Ground
+  ACHR                       Archer Aviation Inc.               10.0     medium                 Launch, Ground
+   TXT                              Textron, Inc.               10.0     medium                     Components
+    PL                            Planet Labs PBC               10.0     medium             Satellites, Ground
+
+✓ Saved to classified_space_companies.csv
+
+⚠️ Found 12 companies (target: 25)
+  Using all 12 companies
+
+================================================================================
+PHASE 2: Fetch Financial Data
+================================================================================
+
+Fetching financials for ASTS...
+  YoY Growth: 11.4%
+Fetching financials for IRDM...
+  YoY Growth: 5.1%
+Fetching financials for SPCE...
+  YoY Growth: 3.5%
+Fetching financials for SPIR...
+  YoY Growth: 4.5%
+Fetching financials for KTOS...
+  YoY Growth: 9.6%
+Fetching financials for GSAT...
+  Error: RetryError[<Future at 0x7d6fddb5ea20 state=finished raised HTTPError>], using estimated growth: 20%
+Fetching financials for LMT...
+  Error: RetryError[<Future at 0x7d6fddd8c320 state=finished raised HTTPError>], using estimated growth: 20%
+Fetching financials for LHX...
+  Error: RetryError[<Future at 0x7d6fdd958d40 state=finished raised HTTPError>], using estimated growth: 20%
+Fetching financials for TDY...
+  Error: RetryError[<Future at 0x7d6fdd871f40 state=finished raised HTTPError>], using estimated growth: 20%
+Fetching financials for ACHR...
+  Error: RetryError[<Future at 0x7d6fdd873680 state=finished raised HTTPError>], using estimated growth: 20%
+Fetching financials for TXT...
+  Error: RetryError[<Future at 0x7d6fdd8b5880 state=finished raised HTTPError>], using estimated growth: 20%
+Fetching financials for PL...
+  YoY Growth: 10.7%
+
+================================================================================
+PHASE 3: Calculate Index Weights
+================================================================================
+
+SPACEINFRA Index - Expanded Universe (12 companies)
+
+Rank   Ticker   Name                           Weight     Space%     Growth%    Mkt Cap     
+------------------------------------------------------------------------------------------------------------------------
+1      ASTS     AST SpaceMobile, Inc. Class     10.62%     90.0%      11.4%   $ 19.19B
+2      GSAT     Globalstar, Inc. Common Stoc    10.62%     30.0%      20.0%   $  6.40B
+3      LMT      Lockheed Martin Corp.           10.62%     20.0%      20.0%   $106.06B
+4      LHX      L3Harris Technologies, Inc.     10.62%     20.0%      20.0%   $ 54.37B
+5      TDY      Teledyne Technologies Incorp    10.49%     10.0%      20.0%   $ 24.09B
+6      TXT      Textron, Inc.                   10.04%     10.0%      20.0%   $ 14.46B
+7      ACHR     Archer Aviation Inc.             9.15%     10.0%      20.0%   $  5.33B
+8      KTOS     Kratos Defense & Security So     7.94%     30.0%       9.6%   $ 13.15B
+9      IRDM     Iridium Communications Inc.      6.12%     50.0%       5.1%   $  1.76B
+10     PL       Planet Labs PBC                  5.78%     10.0%      10.7%   $  3.94B
+11     SPIR     Spire Global, Inc.               4.33%     50.0%       4.5%   $  0.29B
+12     SPCE     Virgin Galactic Holdings, In     3.69%     50.0%       3.5%   $  0.21B
+
+================================================================================
+Index Statistics:
+================================================================================
+
+Number of Constituents: 12
+Total Market Cap: $249.25B
+
+Weighted Averages:
+  Space Revenue %: 30.0%
+  Revenue Growth: 15.5%
+
+Position Sizes:
+  Largest Position: 10.6%
+  Smallest Position: 3.7%
+
+Segment Exposure:
+  Ground: 10 companies
+  Satellites: 8 companies
+  Components: 5 companies
+  Launch: 3 companies
+
+✓ Index saved to spaceinfra_index_25_composition.csv
+
+⚠️ Errors encountered for 20 tickers:
+  AJRD: RetryError[<Future at 0x7d6fdd9b02c0 state=finished raised HTTPError>]
+  DISH: RetryError[<Future at 0x7d6fdd83ba10 state=finished raised HTTPError>]
+  BA: RetryError[<Future at 0x7d6fdd873230 state=finished raised HTTPError>]
+  HII: RetryError[<Future at 0x7d6fddc30320 state=finished raised HTTPError>]
+  VSAT: RetryError[<Future at 0x7d6fdd9b02c0 state=finished raised HTTPError>]
+  CMCSA: RetryError[<Future at 0x7d6fdd8737a0 state=finished raised HTTPError>]
+  RKLB: RetryError[<Future at 0x7d6fdd92a7b0 state=finished raised HTTPError>]
+  RTX: RetryError[<Future at 0x7d6fddd8cce0 state=finished raised HTTPError>]
+  BLDE: RetryError[<Future at 0x7d6fddc30320 state=finished raised HTTPError>]
+  LUNR: RetryError[<Future at 0x7d6fdd871dc0 state=finished raised HTTPError>]
+
+================================================================================
+Universe Expansion Complete!
+================================================================================

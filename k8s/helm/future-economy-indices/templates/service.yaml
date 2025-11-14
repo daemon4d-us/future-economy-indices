@@ -1,0 +1,19 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "future-economy-indices.fullname" . }}
+  namespace: future-economy-indices
+  labels:
+    {{- include "future-economy-indices.labels" . | nindent 4 }}
+  annotations:
+    cloud.google.com/neg: '{"ingress": true}'
+spec:
+  type: {{ .Values.service.type }}
+  sessionAffinity: None
+  selector:
+    {{- include "future-economy-indices.selectorLabels" . | nindent 4 }}
+  ports:
+  - name: http
+    port: {{ .Values.service.port }}
+    targetPort: {{ .Values.service.targetPort }}
+    protocol: TCP

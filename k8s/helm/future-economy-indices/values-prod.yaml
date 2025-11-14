@@ -1,0 +1,51 @@
+# Production environment overrides
+
+environment: prod
+
+# Multiple replicas for HA
+replicaCount: 2
+
+image:
+  tag: "latest"
+
+# Production domain
+ingress:
+  host: api.urania.fund
+  staticIpName: future-economy-api-ip
+
+# Production-grade resources
+resources:
+  limits:
+    cpu: 500m
+    memory: 512Mi
+  requests:
+    cpu: 250m
+    memory: 256Mi
+
+# HPA configuration for production
+autoscaling:
+  enabled: true
+  minReplicas: 2
+  maxReplicas: 10
+  targetCPUUtilizationPercentage: 70
+  targetMemoryUtilizationPercentage: 80
+
+# Info-level logging in production
+env:
+  - name: RUST_LOG
+    value: "info"
+  - name: DATABASE_URL
+    valueFrom:
+      secretKeyRef:
+        name: api-server-secrets
+        key: DATABASE_URL
+  - name: POLYGON_API_KEY
+    valueFrom:
+      secretKeyRef:
+        name: api-server-secrets
+        key: POLYGON_API_KEY
+  - name: ANTHROPIC_API_KEY
+    valueFrom:
+      secretKeyRef:
+        name: api-server-secrets
+        key: ANTHROPIC_API_KEY

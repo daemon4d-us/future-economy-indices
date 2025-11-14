@@ -1,0 +1,42 @@
+{{- if .Values.ingress.enabled -}}
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: {{ include "future-economy-indices.fullname" . }}
+  namespace: future-economy-indices
+  labels:
+    {{- include "future-economy-indices.labels" . | nindent 4 }}
+  annotations:
+    kubernetes.io/ingress.global-static-ip-name: {{ .Values.ingress.staticIpName | quote }}
+    {{- if .Values.ingress.tls.managedCertificate }}
+    networking.gke.io/managed-certificates: {{ include "future-economy-indices.fullname" . }}-cert
+    {{- end }}
+    {{- with .Values.ingress.annotations }}
+    {{- toYaml . | nindent 4 }}
+    {{- end }}
+spec:
+  rules:
+  - host: {{ .Values.ingress.host }}
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: {{ include "future-economy-indices.fullname" . }}
+            port:
+              number: {{ .Values.service.port }}
+{{- end }}
+---
+{{- if and .Values.ingress.enabled .Values.ingress.tls.managedCertificate -}}
+apiVersion: networking.gke.io/v1
+kind: ManagedCertificate
+metadata:
+  name: {{ include "future-economy-indices.fullname" . }}-cert
+  namespace: future-economy-indices
+  labels:
+    {{- include "future-economy-indices.labels" . | nindent 4 }}
+spec:
+  domains:
+  - {{ .Values.ingress.host }}
+{{- end }}

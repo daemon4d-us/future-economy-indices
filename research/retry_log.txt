@@ -1,0 +1,272 @@
+SPACEINFRA Universe Expansion - Retry Failed Tickers
+================================================================================
+
+Loaded 12 existing space companies
+Retrying 21 failed tickers
+Already classified: 12 tickers
+
+Waiting 10 seconds before starting...
+
+================================================================================
+PHASE 1: Retry Failed Tickers
+================================================================================
+
+[1/21] RKLB
+--------------------------------------------------------------------------------
+  Name: Rocket Lab Corporation Common Stock
+  Market Cap: $24,991,728,741
+  🤖 Space Related: True
+  🤖 Space Revenue %: 90%
+  🤖 Confidence: high
+  🤖 Segments: Launch, Satellites
+  ✓ Added to universe
+[2/21] LUNR
+--------------------------------------------------------------------------------
+  Name: Intuitive Machines, Inc. Class A Common Stock
+  Market Cap: $1,144,276,729
+  🤖 Space Related: True
+  🤖 Space Revenue %: 50%
+  🤖 Confidence: high
+  🤖 Segments: Launch, Satellites, Ground, Components
+  ✓ Added to universe
+[3/21] VSAT
+--------------------------------------------------------------------------------
+  Name: Viasat Inc
+  Market Cap: $4,807,952,873
+  🤖 Space Related: True
+  🤖 Space Revenue %: 30%
+  🤖 Confidence: medium
+  🤖 Segments: Satellites, Ground
+  ✓ Added to universe
+[4/21] BA
+--------------------------------------------------------------------------------
+  Name: Boeing Company
+  Market Cap: $147,922,179,027
+  🤖 Space Related: True
+  🤖 Space Revenue %: 20%
+  🤖 Confidence: medium
+  🤖 Segments: Launch, Satellites, Components
+  ✓ Added to universe
+[5/21] NOC
+--------------------------------------------------------------------------------
+  Name: Northrop Grumman Corp.
+  Market Cap: $81,152,057,297
+  🤖 Space Related: True
+  🤖 Space Revenue %: 30%
+  🤖 Confidence: high
+  🤖 Segments: Satellites, Components
+  ✓ Added to universe
+[6/21] RTX
+--------------------------------------------------------------------------------
+  ✗ Error: RetryError[<Future at 0x7e00abb65880 state=finished raised HTTPError>]
+[7/21] HII
+--------------------------------------------------------------------------------
+  ✗ Error: RetryError[<Future at 0x7e00abbb3860 state=finished raised HTTPError>]
+[8/21] DISH
+--------------------------------------------------------------------------------
+  ✗ Error: RetryError[<Future at 0x7e00abbb3f20 state=finished raised HTTPError>]
+[9/21] CMCSA
+--------------------------------------------------------------------------------
+  Name: Comcast Corp
+  Market Cap: $99,660,514,712
+  🤖 Space Related: False
+  🤖 Space Revenue %: 0%
+  🤖 Confidence: low
+  🤖 Segments: 
+  ✗ Not space-related
+[10/21] AJRD
+--------------------------------------------------------------------------------
+  ✗ Error: RetryError[<Future at 0x7e00abbb2660 state=finished raised HTTPError>]
+[11/21] BLDE
+--------------------------------------------------------------------------------
+  ✗ Error: RetryError[<Future at 0x7e00abde1640 state=finished raised HTTPError>]
+[12/21] JOBY
+--------------------------------------------------------------------------------
+  ✗ Error: RetryError[<Future at 0x7e00abc9a000 state=finished raised HTTPError>]
+[13/21] AVAV
+--------------------------------------------------------------------------------
+  ✗ Error: RetryError[<Future at 0x7e00abbb3c20 state=finished raised HTTPError>]
+[14/21] MNTS
+--------------------------------------------------------------------------------
+  ✗ Error: RetryError[<Future at 0x7e00abbb22a0 state=finished raised HTTPError>]
+[15/21] SATS
+--------------------------------------------------------------------------------
+  ✗ Error: RetryError[<Future at 0x7e00abbb3440 state=finished raised HTTPError>]
+[16/21] AXON
+--------------------------------------------------------------------------------
+  Name: Axon Enterprise, Inc. Common Stock
+  Market Cap: $47,544,344,870
+  🤖 Space Related: False
+  🤖 Space Revenue %: 0%
+  🤖 Confidence: low
+  🤖 Segments: 
+  ✗ Not space-related
+[17/21] HON
+--------------------------------------------------------------------------------
+  Name: Honeywell International, Inc.
+  Market Cap: $123,212,560,457
+  🤖 Space Related: True
+  🤖 Space Revenue %: 10%
+  🤖 Confidence: medium
+  🤖 Segments: Components
+  ✓ Added to universe
+[18/21] GILT
+--------------------------------------------------------------------------------
+  Name: Gilat Satellite Networks Ltd
+  Market Cap: $796,956,916
+  🤖 Space Related: True
+  🤖 Space Revenue %: 30%
+  🤖 Confidence: medium
+  🤖 Segments: Satellites, Ground
+  ✓ Added to universe
+[19/21] MKSI
+--------------------------------------------------------------------------------
+  Name: MKS Inc. Common Stock
+  Market Cap: $10,397,834,575
+  🤖 Space Related: True
+  🤖 Space Revenue %: 5%
+  🤖 Confidence: medium
+  🤖 Segments: Components
+  ✓ Added to universe
+[20/21] MAXR
+--------------------------------------------------------------------------------
+  ✗ Error: RetryError[<Future at 0x7e00abb66de0 state=finished raised HTTPError>]
+[21/21] VORB
+--------------------------------------------------------------------------------
+  ✗ Error: RetryError[<Future at 0x7e00abb66630 state=finished raised HTTPError>]
+
+================================================================================
+PHASE 1 COMPLETE: Found 8 additional space companies
+================================================================================
+
+Total space companies: 20
+
+All classified companies:
+ticker                                          name  space_revenue_pct confidence
+  ASTS    AST SpaceMobile, Inc. Class A Common Stock               90.0       high
+  RKLB           Rocket Lab Corporation Common Stock               90.0       high
+  SPCE                Virgin Galactic Holdings, Inc.               50.0       high
+  IRDM                   Iridium Communications Inc.               50.0       high
+  SPIR                            Spire Global, Inc.               50.0       high
+  LUNR Intuitive Machines, Inc. Class A Common Stock               50.0       high
+  KTOS     Kratos Defense & Security Solutions, Inc.               30.0     medium
+  GSAT                 Globalstar, Inc. Common Stock               30.0     medium
+   NOC                        Northrop Grumman Corp.               30.0       high
+  VSAT                                    Viasat Inc               30.0     medium
+  GILT                  Gilat Satellite Networks Ltd               30.0     medium
+   LMT                         Lockheed Martin Corp.               20.0     medium
+   LHX                   L3Harris Technologies, Inc.               20.0     medium
+    BA                                Boeing Company               20.0     medium
+  ACHR                          Archer Aviation Inc.               10.0     medium
+   TDY            Teledyne Technologies Incorporated               10.0     medium
+    PL                               Planet Labs PBC               10.0     medium
+   TXT                                 Textron, Inc.               10.0     medium
+   HON                 Honeywell International, Inc.               10.0     medium
+  MKSI                         MKS Inc. Common Stock                5.0     medium
+
+✓ Saved to classified_space_companies_updated.csv
+
+⚠️ Still failed for 11 tickers:
+  RTX: RetryError[<Future at 0x7e00abb65880 state=finished raised HTTPError>]
+  HII: RetryError[<Future at 0x7e00abbb3860 state=finished raised HTTPError>]
+  DISH: RetryError[<Future at 0x7e00abbb3f20 state=finished raised HTTPError>]
+  AJRD: RetryError[<Future at 0x7e00abbb2660 state=finished raised HTTPError>]
+  BLDE: RetryError[<Future at 0x7e00abde1640 state=finished raised HTTPError>]
+  JOBY: RetryError[<Future at 0x7e00abc9a000 state=finished raised HTTPError>]
+  AVAV: RetryError[<Future at 0x7e00abbb3c20 state=finished raised HTTPError>]
+  MNTS: RetryError[<Future at 0x7e00abbb22a0 state=finished raised HTTPError>]
+  SATS: RetryError[<Future at 0x7e00abbb3440 state=finished raised HTTPError>]
+  MAXR: RetryError[<Future at 0x7e00abb66de0 state=finished raised HTTPError>]
+
+================================================================================
+PHASE 2: Fetch Financial Data
+================================================================================
+
+ASTS: Using existing data
+Fetching financials for RKLB...
+  YoY Growth: 78.3%
+SPCE: Using existing data
+IRDM: Using existing data
+SPIR: Using existing data
+Fetching financials for LUNR...
+  YoY Growth: 186.7%
+KTOS: Using existing data
+GSAT: Using existing data
+Fetching financials for NOC...
+  YoY Growth: 4.4%
+Fetching financials for VSAT...
+  YoY Growth: 5.5%
+Fetching financials for GILT...
+  Using estimated growth: 20%
+LMT: Using existing data
+LHX: Using existing data
+Fetching financials for BA...
+  Error: RetryError[<Future at 0x7e00abb66540 state=finished raised HTTPError>], using estimated growth: 20%
+ACHR: Using existing data
+TDY: Using existing data
+PL: Using existing data
+TXT: Using existing data
+Fetching financials for HON...
+  Error: RetryError[<Future at 0x7e00abb67380 state=finished raised HTTPError>], using estimated growth: 20%
+Fetching financials for MKSI...
+  YoY Growth: -1.0%
+
+================================================================================
+PHASE 3: Calculate Index Weights
+================================================================================
+
+Index parameters: 20 companies, max position 10%
+
+SPACEINFRA Index - Expanded Universe (20 companies)
+
+Rank   Ticker   Name                                Weight     Space%     Growth%    Mkt Cap     
+----------------------------------------------------------------------------------------------------------------------------------
+1      RKLB     Rocket Lab Corporation Common Sto    10.03%     90.0%      78.3%   $ 24.99B
+2      ASTS     AST SpaceMobile, Inc. Class A Com     8.59%     90.0%      11.4%   $ 19.19B
+3      LUNR     Intuitive Machines, Inc. Class A      8.46%     50.0%     186.7%   $  1.14B
+4      BA       Boeing Company                        6.05%     20.0%      20.0%   $147.92B
+5      NOC      Northrop Grumman Corp.                5.87%     30.0%       4.4%   $ 81.15B
+6      LMT      Lockheed Martin Corp.                 5.83%     20.0%      20.0%   $106.06B
+7      LHX      L3Harris Technologies, Inc.           5.38%     20.0%      20.0%   $ 54.37B
+8      HON      Honeywell International, Inc.         5.34%     10.0%      20.0%   $123.21B
+9      KTOS     Kratos Defense & Security Solutio     4.78%     30.0%       9.6%   $ 13.15B
+10     GSAT     Globalstar, Inc. Common Stock         4.54%     30.0%      20.0%   $  6.40B
+11     IRDM     Iridium Communications Inc.           4.50%     50.0%       5.1%   $  1.76B
+12     TDY      Teledyne Technologies Incorporate     4.25%     10.0%      20.0%   $ 24.09B
+13     VSAT     Viasat Inc                            4.01%     30.0%       5.5%   $  4.81B
+14     TXT      Textron, Inc.                         3.91%     10.0%      20.0%   $ 14.46B
+15     SPIR     Spire Global, Inc.                    3.28%     50.0%       4.5%   $  0.29B
+16     ACHR     Archer Aviation Inc.                  3.25%     10.0%      20.0%   $  5.33B
+17     GILT     Gilat Satellite Networks Ltd          3.15%     30.0%      20.0%   $  0.80B
+18     SPCE     Virgin Galactic Holdings, Inc.        3.03%     50.0%       3.5%   $  0.21B
+19     MKSI     MKS Inc. Common Stock                 2.91%      5.0%      -1.0%   $ 10.40B
+20     PL       Planet Labs PBC                       2.83%     10.0%      10.7%   $  3.94B
+
+================================================================================
+Index Statistics:
+================================================================================
+
+Number of Constituents: 20
+Total Market Cap: $643.67B
+
+Weighted Averages:
+  Space Revenue %: 38.7%
+  Revenue Growth: 34.7%
+
+Position Sizes:
+  Largest Position: 10.0%
+  Smallest Position: 2.8%
+
+Segment Exposure:
+  Satellites: 14 companies
+  Ground: 13 companies
+  Components: 10 companies
+  Launch: 6 companies
+
+✓ Final index saved to spaceinfra_index_final.csv
+
+📊 Index Growth: 12 → 20 companies (+8)
+
+================================================================================
+Universe Expansion Complete!
+================================================================================

@@ -1,0 +1,51 @@
+# Development environment overrides
+
+environment: dev
+
+# Single replica for dev
+replicaCount: 1
+
+image:
+  tag: "develop"
+
+# Dev domain
+ingress:
+  host: api.dev.urania.fund
+  staticIpName: future-economy-api-ip-dev
+
+# Lower resources for cost savings
+resources:
+  limits:
+    cpu: 250m
+    memory: 256Mi
+  requests:
+    cpu: 100m
+    memory: 128Mi
+
+# HPA with lower thresholds for dev
+autoscaling:
+  enabled: true
+  minReplicas: 1
+  maxReplicas: 3
+  targetCPUUtilizationPercentage: 80
+  targetMemoryUtilizationPercentage: 85
+
+# More verbose logging in dev
+env:
+  - name: RUST_LOG
+    value: "debug"
+  - name: DATABASE_URL
+    valueFrom:
+      secretKeyRef:
+        name: api-server-secrets
+        key: DATABASE_URL
+  - name: POLYGON_API_KEY
+    valueFrom:
+      secretKeyRef:
+        name: api-server-secrets
+        key: POLYGON_API_KEY
+  - name: ANTHROPIC_API_KEY
+    valueFrom:
+      secretKeyRef:
+        name: api-server-secrets
+        key: ANTHROPIC_API_KEY

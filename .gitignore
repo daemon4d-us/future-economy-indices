@@ -1,0 +1,39 @@
+# Rust build artifacts
+/target
+Cargo.lock
+
+# Environment variables (contains secrets!)
+.env
+*.env.local
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+
+# Terraform
+terraform/.terraform/
+terraform/*.tfstate
+terraform/*.tfstate.backup
+terraform/.terraform.lock.hcl
+
+# Generated files
+YEAR1_BUSINESS_PLAN.pdf
+
+# Node
+node_modules/
+package-lock.json
+*.tsbuildinfo
+.next/
+.turbo/
+dist/
+build/

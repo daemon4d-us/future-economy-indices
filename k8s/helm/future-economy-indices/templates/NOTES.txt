@@ -1,0 +1,48 @@
+Thank you for installing {{ .Chart.Name }}!
+
+Your release is named {{ .Release.Name }}.
+Environment: {{ .Values.environment }}
+
+To learn more about the release, try:
+
+  $ helm status {{ .Release.Name }}
+  $ helm get all {{ .Release.Name }}
+
+API server has been deployed with the following configuration:
+
+  Domain: {{ .Values.ingress.host }}
+  Replicas: {{ .Values.replicaCount }}
+  Image: {{ .Values.image.repository }}:{{ .Values.image.tag }}
+
+To check the deployment status:
+
+  $ kubectl get pods -n future-economy-indices -l app.kubernetes.io/name={{ include "future-economy-indices.name" . }}
+  $ kubectl get ingress -n future-economy-indices
+
+{{- if .Values.ingress.enabled }}
+
+The API will be available at:
+
+  https://{{ .Values.ingress.host }}/health
+  https://{{ .Values.ingress.host }}/api/indices
+
+Note: SSL certificate provisioning may take 15-60 minutes.
+
+Check certificate status:
+
+  $ kubectl describe managedcertificate {{ include "future-economy-indices.fullname" . }}-cert -n future-economy-indices
+{{- end }}
+
+{{- if .Values.autoscaling.enabled }}
+
+Horizontal Pod Autoscaler is enabled:
+
+  Min replicas: {{ .Values.autoscaling.minReplicas }}
+  Max replicas: {{ .Values.autoscaling.maxReplicas }}
+  Target CPU: {{ .Values.autoscaling.targetCPUUtilizationPercentage }}%
+  Target Memory: {{ .Values.autoscaling.targetMemoryUtilizationPercentage }}%
+
+Check HPA status:
+
+  $ kubectl get hpa {{ include "future-economy-indices.fullname" . }} -n future-economy-indices
+{{- end }}

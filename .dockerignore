@@ -1,0 +1,35 @@
+# Build artifacts
+target/
+**/target/
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Git
+.git/
+.gitignore
+
+# Documentation
+*.md
+docs/
+
+# CI/CD
+.github/
+terraform/
+k8s/
+
+# Environment files
+.env
+.env.*
+
+# Node modules (for website)
+website/node_modules/
+website/.next/
+website/out/
+
+# Other
+*.log
+tmp/
