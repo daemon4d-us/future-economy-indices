@@ -1,0 +1,102 @@
+name: Build and Push Docker Image
+
+on:
+  push:
+    branches:
+      - master
+      - develop
+    paths:
+      - 'crates/**'
+      - 'src/**'
+      - 'Dockerfile'
+      - 'Cargo.toml'
+      - 'Cargo.lock'
+      - '.github/workflows/build.yml'
+  pull_request:
+    branches:
+      - master
+      - develop
+
+env:
+  REGISTRY: gcr.io
+  IMAGE_NAME: api-server
+
+jobs:
+  build-and-push:
+    name: Build and Push Docker Image
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      id-token: write
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Set environment variables
+      id: vars
+      run: |
+        if [[ "${{ github.ref }}" == "refs/heads/master" ]]; then
+          echo "GCP_PROJECT_ID=urania-economy-indices-prod" >> $GITHUB_OUTPUT
+          echo "IMAGE_TAG=latest" >> $GITHUB_OUTPUT
+          echo "ENVIRONMENT=prod" >> $GITHUB_OUTPUT
+        elif [[ "${{ github.ref }}" == "refs/heads/develop" ]]; then
+          echo "GCP_PROJECT_ID=urania-economy-indices-dev" >> $GITHUB_OUTPUT
+          echo "IMAGE_TAG=develop" >> $GITHUB_OUTPUT
+          echo "ENVIRONMENT=dev" >> $GITHUB_OUTPUT
+        else
+          echo "GCP_PROJECT_ID=urania-economy-indices-dev" >> $GITHUB_OUTPUT
+          echo "IMAGE_TAG=pr-${{ github.event.pull_request.number }}" >> $GITHUB_OUTPUT
+          echo "ENVIRONMENT=dev" >> $GITHUB_OUTPUT
+        fi
+        echo "SHORT_SHA=$(git rev-parse --short HEAD)" >> $GITHUB_OUTPUT
+
+    - name: Authenticate to Google Cloud (Production)
+      if: github.ref == 'refs/heads/master'
+      uses: google-github-actions/auth@v2
+      with:
+        workload_identity_provider: ${{ secrets.WIF_PROVIDER_PROD }}
+        service_account: ${{ secrets.WIF_SERVICE_ACCOUNT_PROD }}
+
+    - name: Authenticate to Google Cloud (Development)
+      if: github.ref != 'refs/heads/master'
+      uses: google-github-actions/auth@v2
+      with:
+        workload_identity_provider: ${{ secrets.WIF_PROVIDER_DEV }}
+        service_account: ${{ secrets.WIF_SERVICE_ACCOUNT_DEV }}
+
+    - name: Set up Cloud SDK
+      uses: google-github-actions/setup-gcloud@v2
+
+    - name: Configure Docker for GCR
+      run: |
+        gcloud auth configure-docker
+
+    - name: Set up Docker Buildx
+      uses: docker/setup-buildx-action@v3
+
+    - name: Build and push Docker image
+      uses: docker/build-push-action@v5
+      with:
+        context: .
+        file: ./Dockerfile
+        push: ${{ github.event_name != 'pull_request' }}
+        tags: |
+          ${{ env.REGISTRY }}/${{ steps.vars.outputs.GCP_PROJECT_ID }}/${{ env.IMAGE_NAME }}:${{ steps.vars.outputs.IMAGE_TAG }}
+          ${{ env.REGISTRY }}/${{ steps.vars.outputs.GCP_PROJECT_ID }}/${{ env.IMAGE_NAME }}:${{ steps.vars.outputs.SHORT_SHA }}
+        cache-from: type=gha
+        cache-to: type=gha,mode=max
+        build-args: |
+          BUILDKIT_INLINE_CACHE=1
+
+    - name: Image digest
+      run: |
+        echo "Image pushed to:"
+        echo "${{ env.REGISTRY }}/${{ steps.vars.outputs.GCP_PROJECT_ID }}/${{ env.IMAGE_NAME }}:${{ steps.vars.outputs.IMAGE_TAG }}"
+        echo "${{ env.REGISTRY }}/${{ steps.vars.outputs.GCP_PROJECT_ID }}/${{ env.IMAGE_NAME }}:${{ steps.vars.outputs.SHORT_SHA }}"
+
+    - name: Verify image in GCR
+      if: github.event_name != 'pull_request'
+      run: |
+        gcloud container images describe \
+          ${{ env.REGISTRY }}/${{ steps.vars.outputs.GCP_PROJECT_ID }}/${{ env.IMAGE_NAME }}:${{ steps.vars.outputs.IMAGE_TAG }}

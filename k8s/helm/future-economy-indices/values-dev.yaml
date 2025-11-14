@@ -6,6 +6,7 @@ environment: dev
 replicaCount: 1
 
 image:
+  repository: gcr.io/urania-economy-indices-dev/api-server
   tag: "develop"
 
 # Dev domain

@@ -9,7 +9,7 @@ environment: prod
 replicaCount: 2
 
 image:
-  repository: gcr.io/PROJECT_ID/api-server
+  repository: gcr.io/urania-economy-indices-prod/api-server
   pullPolicy: IfNotPresent
   tag: "latest"
 
@@ -18,7 +18,7 @@ serviceAccount:
   create: true
   name: api-server
   annotations:
-    iam.gke.io/gcp-service-account: api-server@PROJECT_ID.iam.gserviceaccount.com
+    iam.gke.io/gcp-service-account: api-server@urania-economy-indices-prod.iam.gserviceaccount.com
 
 # Service configuration
 service:

@@ -1,32 +1,40 @@
-name: Build and Deploy to GKE
+name: Deploy to GKE with Helm
 
 on:
-  push:
+  workflow_run:
+    workflows: ["Build and Push Docker Image"]
+    types:
+      - completed
     branches:
-      - main
+      - master
       - develop
-    paths:
-      - 'crates/**'
-      - 'Dockerfile'
-      - 'Cargo.toml'
-      - 'Cargo.lock'
-      - 'k8s/**'
-      - '.github/workflows/deploy.yml'
-  pull_request:
-    branches:
-      - main
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: 'Environment to deploy to'
+        required: true
+        default: 'dev'
+        type: choice
+        options:
+          - dev
+          - prod
+      image_tag:
+        description: 'Docker image tag to deploy'
+        required: false
+        default: 'latest'
 
 env:
-  PROJECT_ID: ${{ secrets.GCP_PROJECT_ID }}
-  GKE_CLUSTER: ${{ secrets.GKE_CLUSTER_NAME }}
   GKE_REGION: us-central1
-  IMAGE_NAME: api-server
-  REGISTRY: gcr.io
+  HELM_CHART_PATH: k8s/helm/future-economy-indices
+  RELEASE_NAME: future-economy-indices
+  NAMESPACE: future-economy-indices
 
 jobs:
-  setup-build-publish-deploy:
-    name: Setup, Build, Publish, and Deploy
+  deploy:
+    name: Deploy to GKE
     runs-on: ubuntu-latest
+    # Only run if the build workflow succeeded
+    if: ${{ github.event.workflow_run.conclusion == 'success' || github.event_name == 'workflow_dispatch' }}
     permissions:
       contents: read
       id-token: write
@@ -35,77 +43,103 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v4
 
+    - name: Set environment variables
+      id: vars
+      run: |
+        if [[ "${{ github.event_name }}" == "workflow_dispatch" ]]; then
+          ENV="${{ github.event.inputs.environment }}"
+          TAG="${{ github.event.inputs.image_tag }}"
+        elif [[ "${{ github.ref }}" == "refs/heads/master" ]]; then
+          ENV="prod"
+          TAG="latest"
+        else
+          ENV="dev"
+          TAG="develop"
+        fi
+
+        echo "ENVIRONMENT=$ENV" >> $GITHUB_OUTPUT
+        echo "IMAGE_TAG=$TAG" >> $GITHUB_OUTPUT
+
+        if [[ "$ENV" == "prod" ]]; then
+          echo "GCP_PROJECT_ID=urania-economy-indices-prod" >> $GITHUB_OUTPUT
+          echo "GKE_CLUSTER=prod-gke-cluster" >> $GITHUB_OUTPUT
+          echo "VALUES_FILE=values-prod.yaml" >> $GITHUB_OUTPUT
+        else
+          echo "GCP_PROJECT_ID=urania-economy-indices-dev" >> $GITHUB_OUTPUT
+          echo "GKE_CLUSTER=dev-gke-cluster" >> $GITHUB_OUTPUT
+          echo "VALUES_FILE=values-dev.yaml" >> $GITHUB_OUTPUT
+        fi
+
     - name: Authenticate to Google Cloud
       uses: google-github-actions/auth@v2
       with:
-        workload_identity_provider: ${{ secrets.WIF_PROVIDER }}
-        service_account: ${{ secrets.WIF_SERVICE_ACCOUNT }}
+        workload_identity_provider: ${{ steps.vars.outputs.ENVIRONMENT == 'prod' && secrets.WIF_PROVIDER_PROD || secrets.WIF_PROVIDER_DEV }}
+        service_account: ${{ steps.vars.outputs.ENVIRONMENT == 'prod' && secrets.WIF_SERVICE_ACCOUNT_PROD || secrets.WIF_SERVICE_ACCOUNT_DEV }}
 
     - name: Set up Cloud SDK
       uses: google-github-actions/setup-gcloud@v2
 
-    - name: Configure Docker for GCR
+    - name: Install gke-gcloud-auth-plugin
       run: |
-        gcloud auth configure-docker
-
-    - name: Set up Docker Buildx
-      uses: docker/setup-buildx-action@v3
-
-    - name: Extract metadata for Docker
-      id: meta
-      uses: docker/metadata-action@v5
-      with:
-        images: ${{ env.REGISTRY }}/${{ env.PROJECT_ID }}/${{ env.IMAGE_NAME }}
-        tags: |
-          type=ref,event=branch
-          type=ref,event=pr
-          type=sha,prefix={{branch}}-
-          type=raw,value=latest,enable={{is_default_branch}}
-
-    - name: Build and push Docker image
-      uses: docker/build-push-action@v5
-      with:
-        context: .
-        file: ./Dockerfile
-        push: true
-        tags: ${{ steps.meta.outputs.tags }}
-        labels: ${{ steps.meta.outputs.labels }}
-        cache-from: type=gha
-        cache-to: type=gha,mode=max
-        build-args: |
-          BUILDKIT_INLINE_CACHE=1
+        gcloud components install gke-gcloud-auth-plugin
 
     - name: Get GKE credentials
       run: |
-        gcloud container clusters get-credentials ${{ env.GKE_CLUSTER }} \
+        gcloud container clusters get-credentials ${{ steps.vars.outputs.GKE_CLUSTER }} \
           --region ${{ env.GKE_REGION }} \
-          --project ${{ env.PROJECT_ID }}
+          --project ${{ steps.vars.outputs.GCP_PROJECT_ID }}
 
-    - name: Deploy to GKE
-      if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/develop'
+    - name: Install Helm
+      uses: azure/setup-helm@v4
+      with:
+        version: '3.14.0'
+
+    - name: Verify Helm chart
       run: |
-        # Update image in deployment
-        cd k8s/base
-        kustomize edit set image gcr.io/PROJECT_ID/api-server=${{ env.REGISTRY }}/${{ env.PROJECT_ID }}/${{ env.IMAGE_NAME }}:${{ github.sha }}
+        helm lint ${{ env.HELM_CHART_PATH }} \
+          --values ${{ env.HELM_CHART_PATH }}/${{ steps.vars.outputs.VALUES_FILE }}
 
-        # Apply manifests
-        kubectl apply -k .
-
-        # Wait for rollout
-        kubectl rollout status deployment/api-server -n future-economy-indices --timeout=5m
+    - name: Deploy with Helm
+      run: |
+        helm upgrade --install ${{ env.RELEASE_NAME }} \
+          ${{ env.HELM_CHART_PATH }} \
+          --values ${{ env.HELM_CHART_PATH }}/${{ steps.vars.outputs.VALUES_FILE }} \
+          --set image.tag=${{ steps.vars.outputs.IMAGE_TAG }} \
+          --namespace ${{ env.NAMESPACE }} \
+          --create-namespace \
+          --wait \
+          --timeout 10m \
+          --atomic \
+          --cleanup-on-fail
 
     - name: Verify deployment
-      if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/develop'
       run: |
-        kubectl get pods -n future-economy-indices
-        kubectl get services -n future-economy-indices
+        kubectl get pods -n ${{ env.NAMESPACE }}
+        kubectl get services -n ${{ env.NAMESPACE }}
+        kubectl get ingress -n ${{ env.NAMESPACE }}
+
+    - name: Check rollout status
+      run: |
+        kubectl rollout status deployment/${{ env.RELEASE_NAME }} \
+          -n ${{ env.NAMESPACE }} \
+          --timeout=5m
+
+    - name: Get deployment info
+      run: |
+        echo "=== Deployment Information ==="
+        helm list -n ${{ env.NAMESPACE }}
+        echo ""
+        echo "=== Release Status ==="
+        helm status ${{ env.RELEASE_NAME }} -n ${{ env.NAMESPACE }}
 
     - name: Notify deployment status
       if: always()
       run: |
         if [ "${{ job.status }}" == "success" ]; then
-          echo "Deployment successful to GKE cluster: ${{ env.GKE_CLUSTER }}"
+          echo "✅ Deployment successful to ${{ steps.vars.outputs.ENVIRONMENT }} environment"
+          echo "Cluster: ${{ steps.vars.outputs.GKE_CLUSTER }}"
+          echo "Image: gcr.io/${{ steps.vars.outputs.GCP_PROJECT_ID }}/api-server:${{ steps.vars.outputs.IMAGE_TAG }}"
         else
-          echo "Deployment failed"
+          echo "❌ Deployment failed"
           exit 1
         fi
