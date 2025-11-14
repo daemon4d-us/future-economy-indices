@@ -13,23 +13,23 @@ pub use schema::{
     get_all_companies,
     get_companies_by_space_score,
     get_company_by_ticker,
-    upsert_company,
-    // Fundamental queries
-    get_fundamentals_by_company,
-    get_latest_fundamental,
-    insert_fundamental,
     // Index composition queries
     get_current_index_composition,
+    // Fundamental queries
+    get_fundamentals_by_company,
     get_index_composition_as_of,
     get_index_composition_with_companies,
-    get_index_rebalance_dates,
-    insert_index_composition,
-    // Index performance queries
-    get_index_performance,
-    get_latest_index_performance,
-    insert_index_performance,
     // Metadata queries
     get_index_metadata,
+    // Index performance queries
+    get_index_performance,
+    get_index_rebalance_dates,
+    get_latest_fundamental,
+    get_latest_index_performance,
+    insert_fundamental,
+    insert_index_composition,
+    insert_index_performance,
+    upsert_company,
     // Types
     CompositionWithCompany,
     IndexMetadata,
@@ -47,8 +47,6 @@ pub async fn init_pool(database_url: &str) -> Result<PgPool> {
 
 /// Run database migrations
 pub async fn run_migrations(pool: &PgPool) -> Result<()> {
-    sqlx::migrate!("./migrations")
-        .run(pool)
-        .await?;
+    sqlx::migrate!("./migrations").run(pool).await?;
     Ok(())
 }

@@ -3,8 +3,8 @@
 use chrono::NaiveDate;
 use serde::{Deserialize, Serialize};
 
-pub mod templates;
 pub mod convertkit;
+pub mod templates;
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct NewsletterData {

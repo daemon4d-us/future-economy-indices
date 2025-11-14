@@ -58,12 +58,12 @@ pub struct AggregatesResponse {
 
 #[derive(Debug, Deserialize, Serialize, Clone)]
 pub struct AggregateBar {
-    pub t: i64,     // Timestamp (ms)
-    pub o: f64,     // Open
-    pub h: f64,     // High
-    pub l: f64,     // Low
-    pub c: f64,     // Close
-    pub v: i64,     // Volume
+    pub t: i64,          // Timestamp (ms)
+    pub o: f64,          // Open
+    pub h: f64,          // High
+    pub l: f64,          // Low
+    pub c: f64,          // Close
+    pub v: i64,          // Volume
     pub vw: Option<f64>, // Volume weighted average
     pub n: Option<i64>,  // Number of transactions
 }
@@ -132,7 +132,11 @@ impl PolygonClient {
     }
 
     /// Make API request with retry logic and rate limiting
-    async fn make_request(&self, endpoint: &str, params: Option<HashMap<String, String>>) -> Result<serde_json::Value> {
+    async fn make_request(
+        &self,
+        endpoint: &str,
+        params: Option<HashMap<String, String>>,
+    ) -> Result<serde_json::Value> {
         let url = format!("{}{}", BASE_URL, endpoint);
         let mut query_params = params.unwrap_or_default();
         query_params.insert("apiKey".to_string(), self.api_key.clone());
@@ -144,18 +148,16 @@ impl PolygonClient {
 
             debug!("Making request to: {}", endpoint);
 
-            let response = self.client
-                .get(&url)
-                .query(&query_params)
-                .send()
-                .await;
+            let response = self.client.get(&url).query(&query_params).send().await;
 
             match response {
                 Ok(resp) => {
                     let status = resp.status();
 
                     if status.is_success() {
-                        let json = resp.json::<serde_json::Value>().await
+                        let json = resp
+                            .json::<serde_json::Value>()
+                            .await
                             .context("Failed to parse JSON response")?;
                         return Ok(json);
                     }
@@ -171,7 +173,12 @@ impl PolygonClient {
 
                     // Handle server errors with retry
                     if status.is_server_error() && retries < MAX_RETRIES {
-                        warn!("Server error {}, retrying... ({}/{})", status, retries + 1, MAX_RETRIES);
+                        warn!(
+                            "Server error {}, retrying... ({}/{})",
+                            status,
+                            retries + 1,
+                            MAX_RETRIES
+                        );
                         sleep(StdDuration::from_secs(2)).await;
                         retries += 1;
                         continue;
@@ -181,7 +188,12 @@ impl PolygonClient {
                 }
                 Err(e) => {
                     if retries < MAX_RETRIES {
-                        warn!("Request failed: {}, retrying... ({}/{})", e, retries + 1, MAX_RETRIES);
+                        warn!(
+                            "Request failed: {}, retrying... ({}/{})",
+                            e,
+                            retries + 1,
+                            MAX_RETRIES
+                        );
                         sleep(StdDuration::from_secs(2)).await;
                         retries += 1;
                         continue;
@@ -197,8 +209,8 @@ impl PolygonClient {
         let endpoint = format!("/v3/reference/tickers/{}", ticker);
         let json = self.make_request(&endpoint, None).await?;
 
-        let response: TickerDetailsResponse = serde_json::from_value(json)
-            .context("Failed to parse ticker details response")?;
+        let response: TickerDetailsResponse =
+            serde_json::from_value(json).context("Failed to parse ticker details response")?;
 
         Ok(response.results)
     }
@@ -225,8 +237,8 @@ impl PolygonClient {
 
         let json = self.make_request(endpoint, Some(params)).await?;
 
-        let response: SearchTickersResponse = serde_json::from_value(json)
-            .context("Failed to parse search response")?;
+        let response: SearchTickersResponse =
+            serde_json::from_value(json).context("Failed to parse search response")?;
 
         Ok(response.results.unwrap_or_default())
     }
@@ -241,9 +253,8 @@ impl PolygonClient {
         to_date: Option<NaiveDate>,
         limit: u32,
     ) -> Result<Vec<AggregateBar>> {
-        let from = from_date.unwrap_or_else(|| {
-            (Utc::now() - Duration::days(365)).naive_utc().date()
-        });
+        let from =
+            from_date.unwrap_or_else(|| (Utc::now() - Duration::days(365)).naive_utc().date());
         let to = to_date.unwrap_or_else(|| Utc::now().naive_utc().date());
 
         let endpoint = format!(
@@ -261,8 +272,8 @@ impl PolygonClient {
 
         let json = self.make_request(&endpoint, Some(params)).await?;
 
-        let response: AggregatesResponse = serde_json::from_value(json)
-            .context("Failed to parse aggregates response")?;
+        let response: AggregatesResponse =
+            serde_json::from_value(json).context("Failed to parse aggregates response")?;
 
         Ok(response.results.unwrap_or_default())
     }
@@ -282,8 +293,8 @@ impl PolygonClient {
 
         let json = self.make_request(endpoint, Some(params)).await?;
 
-        let response: FinancialsResponse = serde_json::from_value(json)
-            .context("Failed to parse financials response")?;
+        let response: FinancialsResponse =
+            serde_json::from_value(json).context("Failed to parse financials response")?;
 
         Ok(response.results.unwrap_or_default())
     }
@@ -308,14 +319,22 @@ impl PolygonClient {
         let latest = financials.first()?;
         let previous = financials.get(1)?;
 
-        let latest_revenue = latest.financials.as_ref()?
-            .income_statement.as_ref()?
-            .revenues.as_ref()?
+        let latest_revenue = latest
+            .financials
+            .as_ref()?
+            .income_statement
+            .as_ref()?
+            .revenues
+            .as_ref()?
             .value? as f32;
 
-        let previous_revenue = previous.financials.as_ref()?
-            .income_statement.as_ref()?
-            .revenues.as_ref()?
+        let previous_revenue = previous
+            .financials
+            .as_ref()?
+            .income_statement
+            .as_ref()?
+            .revenues
+            .as_ref()?
             .value? as f32;
 
         if previous_revenue == 0.0 {

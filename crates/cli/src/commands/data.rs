@@ -1,7 +1,7 @@
 // Data management commands
 
-use anyhow::{Context, Result};
 use ai_classifier::{AnthropicClassifier, CompanyInfo};
+use anyhow::{Context, Result};
 use data_ingestion::PolygonClient;
 use tracing::{info, warn};
 
@@ -19,7 +19,10 @@ pub async fn ingest_ticker(ticker: &str) -> Result<()> {
     println!("\n[+] Ticker Details:");
     println!("   Ticker: {}", details.ticker);
     println!("   Name: {}", details.name);
-    println!("   Market Cap: ${:.2}B", details.market_cap.unwrap_or(0) as f64 / 1e9);
+    println!(
+        "   Market Cap: ${:.2}B",
+        details.market_cap.unwrap_or(0) as f64 / 1e9
+    );
     if let Some(desc) = &details.description {
         println!("   Description: {}", &desc[..desc.len().min(100)]);
     }
@@ -39,7 +42,9 @@ pub async fn ingest_ticker(ticker: &str) -> Result<()> {
 
     // Fetch recent price data
     info!("Fetching price data...");
-    let aggregates = client.get_aggregates(ticker, 1, "day", None, None, 30).await?;
+    let aggregates = client
+        .get_aggregates(ticker, 1, "day", None, None, 30)
+        .await?;
 
     if !aggregates.is_empty() {
         let latest = &aggregates[aggregates.len() - 1];
@@ -86,7 +91,10 @@ pub async fn classify_company(
     println!("\n[AI] Classification Results:");
     println!("   Ticker: {}", result.ticker);
     println!("   Company: {}", result.company_name);
-    println!("   Space Related: {}", if result.is_space_related { "YES" } else { "NO" });
+    println!(
+        "   Space Related: {}",
+        if result.is_space_related { "YES" } else { "NO" }
+    );
     println!("   Space Revenue %: {:.1}%", result.space_revenue_pct);
     println!("   Confidence: {}", result.confidence);
     println!("   Segments: {}", result.segments.join(", "));
@@ -100,8 +108,7 @@ pub async fn classify_batch(file_path: &str) -> Result<()> {
     info!("Batch classification from file: {}", file_path);
 
     // Read CSV file
-    let contents = std::fs::read_to_string(file_path)
-        .context("Failed to read CSV file")?;
+    let contents = std::fs::read_to_string(file_path).context("Failed to read CSV file")?;
 
     let mut companies = Vec::new();
 
@@ -140,9 +147,7 @@ pub async fn classify_batch(file_path: &str) -> Result<()> {
     let results = classifier.batch_classify(companies, true).await;
 
     // Print summary
-    let space_companies: Vec<_> = results.iter()
-        .filter(|r| r.is_space_related)
-        .collect();
+    let space_companies: Vec<_> = results.iter().filter(|r| r.is_space_related).collect();
 
     println!("\n[+] Batch classification complete!");
     println!("   Total: {}", results.len());
@@ -153,8 +158,10 @@ pub async fn classify_batch(file_path: &str) -> Result<()> {
     if !space_companies.is_empty() {
         println!("\n[+] Space Companies:");
         for r in space_companies {
-            println!("   {} - {} ({}% space revenue)",
-                r.ticker, r.company_name, r.space_revenue_pct as i32);
+            println!(
+                "   {} - {} ({}% space revenue)",
+                r.ticker, r.company_name, r.space_revenue_pct as i32
+            );
         }
     }
 

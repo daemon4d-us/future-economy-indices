@@ -79,10 +79,7 @@ pub async fn get_all_companies(pool: &PgPool) -> Result<Vec<Company>> {
 }
 
 /// Get companies by minimum space score
-pub async fn get_companies_by_space_score(
-    pool: &PgPool,
-    min_score: f32,
-) -> Result<Vec<Company>> {
+pub async fn get_companies_by_space_score(pool: &PgPool, min_score: f32) -> Result<Vec<Company>> {
     let companies = sqlx::query_as!(
         Company,
         r#"
@@ -131,10 +128,7 @@ pub async fn insert_fundamental(pool: &PgPool, fundamental: &Fundamental) -> Res
 }
 
 /// Get latest fundamental for a company
-pub async fn get_latest_fundamental(
-    pool: &PgPool,
-    company_id: i32,
-) -> Result<Option<Fundamental>> {
+pub async fn get_latest_fundamental(pool: &PgPool, company_id: i32) -> Result<Option<Fundamental>> {
     let fundamental = sqlx::query_as!(
         Fundamental,
         r#"

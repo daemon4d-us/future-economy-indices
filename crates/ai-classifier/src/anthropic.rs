@@ -85,12 +85,8 @@ impl AnthropicClassifier {
         description: &str,
         additional_context: Option<&str>,
     ) -> Result<Classification> {
-        let prompt = self.build_classification_prompt(
-            ticker,
-            company_name,
-            description,
-            additional_context,
-        );
+        let prompt =
+            self.build_classification_prompt(ticker, company_name, description, additional_context);
 
         debug!("Classifying company: {} ({})", company_name, ticker);
 

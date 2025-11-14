@@ -19,11 +19,7 @@ impl ConvertKitClient {
     }
 
     /// Add a subscriber to a form
-    pub async fn add_subscriber(
-        &self,
-        subscriber: &Subscriber,
-        form_id: &str,
-    ) -> Result<()> {
+    pub async fn add_subscriber(&self, subscriber: &Subscriber, form_id: &str) -> Result<()> {
         // TODO: Implement actual API call
         println!("[ConvertKit] Would add subscriber: {}", subscriber.email);
         println!("  Form ID: {}", form_id);
@@ -60,19 +56,13 @@ mod tests {
 
     #[test]
     fn test_client_creation() {
-        let client = ConvertKitClient::new(
-            "test_key".to_string(),
-            "test_secret".to_string(),
-        );
+        let client = ConvertKitClient::new("test_key".to_string(), "test_secret".to_string());
         assert_eq!(client.base_url, "https://api.convertkit.com/v3");
     }
 
     #[tokio::test]
     async fn test_add_subscriber() {
-        let client = ConvertKitClient::new(
-            "test_key".to_string(),
-            "test_secret".to_string(),
-        );
+        let client = ConvertKitClient::new("test_key".to_string(), "test_secret".to_string());
         let subscriber = Subscriber {
             email: "test@example.com".to_string(),
             first_name: Some("Test".to_string()),

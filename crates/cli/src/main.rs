@@ -156,8 +156,7 @@ async fn main() -> Result<()> {
         .compact()
         .finish();
 
-    tracing::subscriber::set_global_default(subscriber)
-        .expect("Failed to set tracing subscriber");
+    tracing::subscriber::set_global_default(subscriber).expect("Failed to set tracing subscriber");
 
     info!("Future Economy Indices CLI");
 

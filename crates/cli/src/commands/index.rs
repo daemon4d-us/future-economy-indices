@@ -38,25 +38,32 @@ pub async fn calculate_index(name: &str, save: bool) -> Result<()> {
 
     // Display results
     println!("\n[+] Index Composition:\n");
-    println!("{:<6} {:<8} {:<30} {:<10} {:<12} {:<10}",
-        "Rank", "Ticker", "Name", "Weight", "Space%", "Growth%");
+    println!(
+        "{:<6} {:<8} {:<30} {:<10} {:<12} {:<10}",
+        "Rank", "Ticker", "Name", "Weight", "Space%", "Growth%"
+    );
     println!("{}", "-".repeat(85));
 
     for c in &constituents {
-        println!("{:<6} {:<8} {:<30} {:>7.2}%   {:>7.1}%   {:>7.1}%",
+        println!(
+            "{:<6} {:<8} {:<30} {:>7.2}%   {:>7.1}%   {:>7.1}%",
             c.rank,
             c.ticker,
             &c.name[..c.name.len().min(30)],
             c.weight * 100.0,
             c.space_revenue_pct,
-            c.revenue_growth_rate);
+            c.revenue_growth_rate
+        );
     }
 
     // Summary stats
     if let Some(stats) = algo.summary_stats(&constituents) {
         println!("\n[+] Index Statistics:");
         println!("   Total Weight: {:.1}%", stats.total_weight * 100.0);
-        println!("   Weighted Avg Space Revenue: {:.1}%", stats.weighted_avg_space_rev_pct);
+        println!(
+            "   Weighted Avg Space Revenue: {:.1}%",
+            stats.weighted_avg_space_rev_pct
+        );
         println!("   Weighted Avg Growth: {:.1}%", stats.weighted_avg_growth);
         println!("   Largest Position: {:.1}%", stats.max_weight * 100.0);
         println!("   Smallest Position: {:.1}%", stats.min_weight * 100.0);
@@ -76,7 +83,11 @@ pub async fn calculate_index(name: &str, save: bool) -> Result<()> {
 pub async fn rebalance_index(name: &str, quarter: &str) -> Result<()> {
     info!("Rebalancing index {} for {}", name, quarter);
 
-    println!("\n[INDEX] Rebalancing {} for {}", name.to_uppercase(), quarter);
+    println!(
+        "\n[INDEX] Rebalancing {} for {}",
+        name.to_uppercase(),
+        quarter
+    );
     println!("   [!] This feature requires database integration");
     println!("   Will compare current composition vs new calculation");
     println!("   and generate trades for rebalancing");

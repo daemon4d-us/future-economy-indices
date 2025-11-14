@@ -11,8 +11,8 @@ use tracing::error;
 
 use crate::{
     models::{
-        ConstituentInfo, ErrorResponse, IndexCompositionResponse, IndexInfo,
-        PerformanceData, PerformanceResponse,
+        ConstituentInfo, ErrorResponse, IndexCompositionResponse, IndexInfo, PerformanceData,
+        PerformanceResponse,
     },
     state::AppState,
 };
@@ -148,7 +148,9 @@ pub async fn get_index(
                 Ok(Json(IndexInfo {
                     name: "AIINFRA".to_string(),
                     display_name: "AI Infrastructure Index".to_string(),
-                    description: "Tracks companies building the infrastructure for artificial intelligence.".to_string(),
+                    description:
+                        "Tracks companies building the infrastructure for artificial intelligence."
+                            .to_string(),
                     num_constituents: 0,
                     total_market_cap: 0.0,
                     last_rebalance: None,
@@ -211,10 +213,11 @@ pub async fn get_composition(
             }
 
             // Get rebalance date from the index
-            let as_of_date = match database::get_index_rebalance_dates(&state.db, &index_name_upper).await {
-                Ok(dates) if !dates.is_empty() => dates[0],
-                _ => NaiveDate::from_ymd_opt(2024, 12, 31).unwrap(),
-            };
+            let as_of_date =
+                match database::get_index_rebalance_dates(&state.db, &index_name_upper).await {
+                    Ok(dates) if !dates.is_empty() => dates[0],
+                    _ => NaiveDate::from_ymd_opt(2024, 12, 31).unwrap(),
+                };
 
             let total_weight: f64 = compositions.iter().map(|c| c.weight).sum();
             let num_companies = compositions.len() as i32;
@@ -331,9 +334,8 @@ pub async fn get_performance(
 
             let volatility = if returns.len() > 1 {
                 let mean = returns.iter().sum::<f32>() / returns.len() as f32;
-                let variance = returns.iter()
-                    .map(|r| (r - mean).powi(2))
-                    .sum::<f32>() / (returns.len() - 1) as f32;
+                let variance = returns.iter().map(|r| (r - mean).powi(2)).sum::<f32>()
+                    / (returns.len() - 1) as f32;
                 (variance.sqrt() * 252.0_f32.sqrt()) * 100.0
             } else {
                 0.0
